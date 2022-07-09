@@ -7,7 +7,6 @@ import (
 	"time"
 	"reflect"
 	"strconv"
-	
 )
 
 // DO NOT EDIT THIS FUNCTION
@@ -56,23 +55,21 @@ func TestSort(t *testing.T) {
 	}
 }
 func TestNew(t *testing.T) {
-	//t.Parallel()
-
 	result1, err1 := New("cover")
 	if result1 != nil && err1 != strconv.ErrSyntax {
-		t.Errorf("Wrong parsing matrix")
+		t.Errorf("wrong parsing matrix")
 	}
 
 	result2, err2 := New("1 2 \n 3")
-	if result2 != nil && err2.Error() != "Rows need to be the same length" {
-		t.Errorf("Wrong Matrix")
+	if result2 != nil && err2.Error() != "rows have to be the difference length" {
+		t.Errorf("wrong Matrix")
 	}
 
 	result3, err3 := New("1 2 \n 3 4")
 	expect3 := &Matrix{2, 2, []int{1,2,3,4}}
 	
 	if result3.cols != expect3.cols || result3.rows != expect3.rows || !reflect.DeepEqual(result3.data, expect3.data) || err3 != nil {
-		t.Errorf("Wrong new Matrix")
+		t.Errorf("wrong new Matrix")
 	}
 }
 
@@ -117,10 +114,10 @@ func TestSet(t *testing.T) {
 	m := &Matrix{rows: 1, cols: 10, data: []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}
 	matrix := map[string]map[string]int{
 	"normal" : {
-		"col" : 10,
-		"row" : 1,
+		"col" : 5,
+		"row" : 3,
 		"value" : 10,
-		"res" : 10,
+		"res" : 9,
 	},
 	"err_col" : {
 		"col" : 10,
@@ -154,4 +151,3 @@ for k, v := range matrix {
 	})
 }
 }
-

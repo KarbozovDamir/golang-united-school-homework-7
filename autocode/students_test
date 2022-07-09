@@ -35,6 +35,7 @@ func TestLen(t *testing.T) {
 	} 
 }
 
+
 func TestSort(t *testing.T) {
 	exp := []string{"DamirKarbozov", "FaizGalymzhanov","FaizKarbozov", "TimurKarbozov", "SerikKarbozov"}
 
@@ -53,7 +54,6 @@ func TestSort(t *testing.T) {
 		}
 	}
 }
-
 func TestNew(t *testing.T) {
 	result1, err1 := New("cover")
 	if result1 != nil && err1 != strconv.ErrSyntax {
@@ -73,6 +73,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
+
 func TestRows(t *testing.T) {
 	m := Matrix{
 		rows: 2,
@@ -88,6 +89,7 @@ func TestRows(t *testing.T) {
 	if !reflect.DeepEqual(got, expMtrx){
 		t.Error("testing error: rows are not equal")
 	}
+	
 }
 
 func TestCols(t *testing.T) {
@@ -104,16 +106,18 @@ func TestCols(t *testing.T) {
 	if !reflect.DeepEqual(got, expMtrx){
 		t.Errorf("testing error: cols are not equal\n expMtrx: %v\ngot: %v", expMtrx, got)
 	}
+	
 }
+
 
 func TestSet(t *testing.T) {
 	m := &Matrix{rows: 1, cols: 10, data: []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}
 	matrix := map[string]map[string]int{
 	"normal" : {
-		"col" : 10,
-		"row" : 1,
+		"col" : 5,
+		"row" : 3,
 		"value" : 10,
-		"res" : 10,
+		"res" : 9,
 	},
 	"err_col" : {
 		"col" : 10,
