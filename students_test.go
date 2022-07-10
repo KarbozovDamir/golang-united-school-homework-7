@@ -112,13 +112,13 @@ func TestCols(t *testing.T) {
 
 
 func TestSet(t *testing.T) {
-
+	
 	var m = &Matrix{
 		rows: 1, 
 		cols: 10, 
 		data: []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10},
 	}
-	
+
 	rows, cols := 1, 10
 	data := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
