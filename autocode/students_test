@@ -55,21 +55,22 @@ func TestSort(t *testing.T) {
 	}
 }
 func TestNew(t *testing.T) {
-	result1, err1 := New("cover")
+    var strMatrix string ="test"
+	result1, err1 := New(strMatrix)
 	if result1 != nil && err1 != strconv.ErrSyntax {
 		t.Errorf("wrong parsing matrix")
 	}
 
 	result2, err2 := New("1 2 \n 3")
-	if result2 != nil && err2.Error() != "rows have to be the difference length" {
-		t.Errorf("wrong Matrix")
+	if result2 != nil && err2.Error() != "rows have to be same length" {
+		t.Errorf("wrong the Matrix")
 	}
 
 	result3, err3 := New("1 2 \n 3 4")
 	expect3 := &Matrix{2, 2, []int{1,2,3,4}}
 	
 	if result3.cols != expect3.cols || result3.rows != expect3.rows || !reflect.DeepEqual(result3.data, expect3.data) || err3 != nil {
-		t.Errorf("wrong new Matrix")
+		t.Errorf("wrong the new added Matrix")
 	}
 }
 
@@ -111,44 +112,33 @@ func TestCols(t *testing.T) {
 
 
 func TestSet(t *testing.T) {
-	m := &Matrix{rows: 1, cols: 10, data: []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}
-	matrix := map[string]map[string]int{
-	"normal" : {
-		"col" : 5,
-		"row" : 3,
-		"value" : 10,
-		"res" : 9,
-	},
-	"err_col" : {
-		"col" : 10,
-		"row" : 10,
-		"value" : 7,
-		"res" : 10,
-	},
-	"err_row" : {
-		"col" : 2,
-		"row" : 2,
-		"value" : 2,
-		"res" : 0,
-	},
-	"err_minus" : {
-		"col" : -4,
-		"row" : 0,
-		"value" : 7,
-		"res" : 0,
-	},
-}
 
-for k, v := range matrix {
-	name, obj := k, v
-	t.Run(name, func(t *testing.T) {
-		t.Parallel()
-		ans := obj["res"] 
-		got := m.Set(obj["row"], obj["col"], obj["value"])
-		if got && ans == 0 || !got && ans == 1 {
-			t.Errorf("expected \"%t\" but got \"%t\"",!got, got)
-		}
-	})
-}
-}
+	var m = &Matrix{
+		rows: 1, 
+		cols: 10, 
+		data: []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10},
+	}
+	
+	rows, cols := 1, 10
+	data := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
+	if len(m.Rows()) != rows {
+		t.Errorf("return incorrect rows : get %v, should %v", len(m.Rows()), rows)
+	}
+
+	if len(m.Cols()) != cols {
+		t.Errorf("return incorrect cols: get %v, should %v", len(m.Rows()), cols)
+	}
+
+	if !reflect.DeepEqual(data, m.data) {
+		t.Errorf("return  incorrect data: get %v, should %v", m.data, data)
+	}
+
+	if !m.Set(0,1,10) {
+		t.Errorf("return incorrect data")
+	}
+
+	if m.Set(1,0,10) {
+		t.Errorf("set wrong col or row")
+	}
+}
